@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.content {
+    text-align: center;
+}
+
+.main {
+    display: inline-block;
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 220px;
+    font-size: 20px;
+    text-align: center;
+}
+
+button {
+    padding: 5px;
+}
+
+h2 {
+    color: blue;
+}
+
+span {
+    color: red;
+}
