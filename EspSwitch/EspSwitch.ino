@@ -37,7 +37,8 @@ String s1;
 
 // PIN Config
 const int D4_PIN = 2; 
-
+const int light_switch = 0;
+volatile bool state = false;
 
 void streamCallback(FirebaseStream data)
 {
@@ -107,7 +108,7 @@ void loop()
   {
     // Code to send data if needed
   }
-
+  
   if (dataChanged)
   {
     dataChanged = false;
@@ -121,9 +122,26 @@ void loop()
       digitalWrite(D4_PIN, LOW);
     }
   }
+ 
+  bool current_state = digitalRead(light_switch);
+  if (current_state!=state)
+  {
+    if (current_state){
+      digitalWrite(light_switch, HIGH);
+      Serial.printf("s1 switch %s\n", Firebase.RTDB.setString(&fbdo, F("/s1"), F("1")) ? "ok" : fbdo.errorReason().c_str());
+    }
+    else{
+      digitalWrite(light_switch, LOW);
+      Serial.printf("s1 switch %s\n", Firebase.RTDB.setString(&fbdo, F("/s1"), F("0")) ? "ok" : fbdo.errorReason().c_str());
 
+    }
+    
+    state = current_state;
+  } 
+  
   if (!stream.httpConnected())
   {
     Serial.println("Server was disconnected!");
   }
+   delay(500);
 }
